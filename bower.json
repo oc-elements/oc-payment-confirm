@@ -4,7 +4,8 @@
   "main": "oc-payment-confirm.html",
   "dependencies": {
     "polymer": "Polymer/polymer#^2.0.0",
-    "paper-button": "PolymerElements/paper-button#^2.0.0"
+    "paper-button": "PolymerElements/paper-button#^2.0.0",
+    "iron-icons": "PolymerElements/iron-icons#^2.0.1"
   },
   "devDependencies": {
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",
