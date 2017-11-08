@@ -48,43 +48,48 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-6">
+                &nbsp;
+            </div>
+            <div class="row">
+                <div class="col-xs-3">
                     Type:
                 </div>
-                <div class="col-xs-6">
+                <div class="col-xs-9">
                     [[_capatalize(method)]]
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-6">
-                    Payment Number:
+                <div class="col-xs-3">
+                    Ref #:
                 </div>
-                <div class="col-xs-6">
+                <div class="col-xs-9">
                     [[paymentId]]
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-6">
+                <div class="col-xs-3">
                     Total:
                 </div>
-                <div class="col-xs-6">
-                    R [[amount]]
+                <div class="col-xs-9">
+                    R [[_twoDecimal(amount)]]
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-6">
+                <div class="col-xs-3">
                     To:
                 </div>
-                <div class="col-xs-6">
+                <div class="col-xs-9">
                     <b>[[organisationName]]</b>
                 </div>
             </div>
-
+            <div class="row">
+                &nbsp;
+            </div>
         </div>
         </div>
         <div class="row">
             <div class="col-xs-12 category-heading text-center">
-                <a href="/"><paper-button class="primary add-button">Finished</paper-button></a>
+                <paper-button class="primary add-button" on-tap="_redirect">Finished<paper-button>
             </div>
         </div>
         </div>
@@ -115,6 +120,10 @@
                     },
                     method: {
                         type: String
+                    },
+                    //this goes back up to parent element and resets the switch
+                    paymentSuccess: {
+                        type: Boolean
                     }
                 };
             }
@@ -122,6 +131,17 @@
             _capatalize(string){
                 return String(string).charAt(0).toUpperCase() + string.slice(1);
 
+            }
+            //Capatalizes a string
+            _twoDecimal(amount){
+                return parseFloat(Math.round(amount * 100) / 100).toFixed(2);
+
+            }
+
+            _redirect(){
+                this.dispatchEvent(new CustomEvent('payment-confirmed', {
+                    bubbles: true, composed: true
+                }));
             }
         }
 
