@@ -1,113 +1,150 @@
 <link rel="import" href="../polymer/polymer-element.html">
 <link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../iron-icon-button/iron-icon.html">
 
 
 <dom-module id="oc-payment-confirm">
     <template>
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-      <style include="shop-button" is="custom-style">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <style include="shop-button" is="custom-style">
 
-        :host {
-          display: block;
-          background: #ffffff;
-          color: #000;
-        }
-        .category-heading {
-          border-top: 1px #cecece solid;
-          border-bottom: 1px #cecece solid;
-          background: #f8f8f8;
-          color: #000;
-        }
-        h3 {
-          font-size:1.13em !important;
-          margin: 10px 0 !important;
-        }
+            :host {
+                display: block;
+                background: #ffffff;
+                color: #000;
+            }
+            .category-heading {
+                border-top: 1px #cecece solid;
+                border-bottom: 1px #cecece solid;
+                background: #f8f8f8;
+                color: #000;
+            }
+            h3 {
+                font-size:1.13em !important;
+                margin: 10px 0 !important;
+            }
 
-        .add-button-row {
-          background: #ffffff;
-          margin: 15px 0;
-        }
-        .add-button {
-          width: 100%;
-          color: #fff;
-          background: #2BB673;
-        }
+            .add-button-row {
+                background: #ffffff;
+                margin: 15px 0;
+            }
+            .add-button {
+                width: 100%;
+                color: #fff;
+                background: #2BB673;
+            }
 
-        .full-width {
-          width:100%;
-        }
-        paper-dropdown-menu {
-          width:100%;
-        }
-      </style>
+            .full-width {
+                width:100%;
+            }
+            paper-dropdown-menu {
+                width:100%;
+            }
+        </style>
         <div class="container-fluid">
             <div class="row">
-              <div class="col-xs-12 category-heading">
-                  <h3>Payment Success</h3>
-              </div>
+                <div class="col-xs-12 category-heading">
+                    <h3>Payment Success</h3>
+                </div>
             </div>
+            <div class="row">
+                &nbsp;
+            </div>
+            <div class="row">
+                <div class="col-xs-3">
+                    Type:
+                </div>
+                <div class="col-xs-9">
+                    [[_capatalize(method)]]
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3">
+                    Ref #:
+                </div>
+                <div class="col-xs-9">
+                    [[paymentId]]
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3">
+                    Total:
+                </div>
+                <div class="col-xs-9">
+                    R [[_twoDecimal(amount)]]
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3">
+                    To:
+                </div>
+                <div class="col-xs-9">
+                    <b>[[organisationName]]</b>
+                </div>
+            </div>
+            <div class="row">
+                &nbsp;
+            </div>
+        </div>
+        </div>
         <div class="row">
-            <div class="col-xs-6">
-                Payment Number:
-            </div>
-            <div class="col-xs-6">
-               [[paymentId]]
+            <div class="col-xs-12 category-heading text-center">
+                <paper-button class="primary add-button" on-tap="_redirect">Finish</paper-button>
             </div>
         </div>
-        <div class="row">
-              <div class="col-xs-6">
-                  Total:
-              </div>
-              <div class="col-xs-6">
-                  R [[amount]]
-              </div>
-        </div>
-          <div class="row">
-              <div class="col-xs-6">
-                  To:
-              </div>
-              <div class="col-xs-6">
-                  [[organisationName]]
-              </div>
         </div>
 
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-12 category-heading text-center">
-          <a href="/"><paper-button class="full-width">Finished</paper-button></a>
-        </div>
-      </div>
-    </div>
+    </template>
 
-  </template>
-
-  <script>
-    /**
-     * `oc-payment-confirm`
-     * Payment Confirmation screen
-     *
-     * @customElement
-     * @polymer
-     * @demo demo/index.html
-     */
-    class OcPaymentConfirm extends Polymer.Element {
-      static get is() { return 'oc-payment-confirm'; }
-      static get properties() {
-        return {
-            organisationName: {
-              type: String
-            },
-            amount: {
-              type: Number
-            },
-            paymentId: {
-                type: String
+    <script>
+        /**
+         * `oc-payment-confirm`
+         * Payment Confirmation screen
+         *
+         * @customElement
+         * @polymer
+         * @demo demo/index.html
+         */
+        class OcPaymentConfirm extends Polymer.Element {
+            static get is() { return 'oc-payment-confirm'; }
+            static get properties() {
+                return {
+                    organisationName: {
+                        type: String
+                    },
+                    amount: {
+                        type: Number
+                    },
+                    paymentId: {
+                        type: String
+                    },
+                    method: {
+                        type: String
+                    },
+                    //this goes back up to parent element and resets the switch
+                    paymentSuccess: {
+                        type: Boolean
+                    }
+                };
             }
-        };
-      }
-    }
+            //Capatalizes a string
+            _capatalize(string){
+                return String(string).charAt(0).toUpperCase() + string.slice(1);
 
-    window.customElements.define(OcPaymentConfirm.is, OcPaymentConfirm);
-  </script>
+            }
+            //Capatalizes a string
+            _twoDecimal(amount){
+                return parseFloat(Math.round(amount * 100) / 100).toFixed(2);
+
+            }
+
+            _redirect(){
+                this.dispatchEvent(new CustomEvent('payment-confirmed', {
+                    bubbles: true, composed: true
+                }));
+            }
+        }
+
+        window.customElements.define(OcPaymentConfirm.is, OcPaymentConfirm);
+    </script>
 </dom-module>
