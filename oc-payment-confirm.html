@@ -32,13 +32,6 @@
                 margin: 10px 0;
             }
 
-            .accept-icon {
-                --iron-icon-width: 64px;
-                --iron-icon-height: 64px;
-                color: green;
-                font-size: 64px;
-            }
-
         </style>
         <div class="container-fluid">
             <div class="row">
@@ -46,39 +39,44 @@
                     <h3>Payment Success</h3>
                 </div>
             </div>
-
-
             <div class="row">
-                <div class="col-xs-4 pull-right">
+                &nbsp;
+            </div>
+            <div class="row">
+                <div class="col-xs-3">
+                    To:
                 </div>
-                <div class="col-xs-12">
-                    <h5 class="text-center">[[organisationName]]</h5>
-                    <p class="text-center">
-                        <iron-icon class="accept-icon" icon="icons:check"></iron-icon>
-                    </p>
-                    <h1 class="text-center">Payment Received</h1>
-                    <p>Thank you for your payment of R [[_twoDecimal(amount)]]</p>
-                    <p class="text-uppercase">Sale #[[paymentId]] [[routeData.transactionId]]</p>
+                <div class="col-xs-9">
+                    <b>[[organisationName]]</b>
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-12 details-header">
-                    <p class=""><span class="text-uppercase">Description</span><span class="pull-right text-uppercase">Amount</span>
-                    </p>
+                <div class="col-xs-3">
+                    Amount:
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-6">
-                    Paid Amount
-                </div>
-                <div class="col-xs-6 text-right">
+                <div class="col-xs-9">
                     R [[_twoDecimal(amount)]]
                 </div>
-
             </div>
-
-            <p class="text-center">Thank you for your business</p>
-
+            <div class="row">
+                <div class="col-xs-3">
+                    Account:
+                </div>
+                <div class="col-xs-9">
+                    [[_capatalize(method)]]
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3">
+                    Ref #:
+                </div>
+                <div class="col-xs-9">
+                    [[paymentId]]
+                </div>
+            </div>
+            <div class="row">
+                &nbsp;
+            </div>
             <div class="row category-heading">
                 <div class="col-xs-12 text-center">
                     <paper-button class="primary add-button" on-tap="_redirect">Continue</paper-button>
